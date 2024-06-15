@@ -80,7 +80,7 @@ import org.d3if0142.book.BuildConfig
 import org.d3if0142.book.R
 import org.d3if0142.book.model.User
 import org.d3if0142.book.network.ApiStatus
-import org.d3if0142.book.network.HewanApi
+import org.d3if0142.book.network.BookApi
 import org.d3if0142.book.network.UserDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -162,7 +162,7 @@ fun MainScreen(navController: NavHostController) {
                 }) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = stringResource(id = R.string.tambah_hewan)
+                        contentDescription = stringResource(id = R.string.tambah_buku)
                     )
                 }
             }
@@ -189,10 +189,10 @@ fun MainScreen(navController: NavHostController) {
             }
         }
         if (showHewanDialog) {
-            HewanDialog(
+            BookDialog(
                 bitmap = bitmap,
-                onDismissRequest = { showHewanDialog = false }) { nama, namaLatin ->
-                viewModel.saveData(user.email, nama, namaLatin, bitmap!!)
+                onDismissRequest = { showHewanDialog = false }) { nama, halaman ->
+                viewModel.saveData(user.email, nama, halaman, bitmap!!)
                 showHewanDialog = false
             }
         }
@@ -287,7 +287,7 @@ fun ListItem(hewan: Book, onDeleteRequest: (String) -> Unit, isUserLoggedIn: Boo
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(HewanApi.getHewanUrl(hewan.imageId))
+                .data(BookApi.getHewanUrl(hewan.imageId))
                 .crossfade(true)
                 .build(),
             contentDescription = stringResource(R.string.gambar, hewan.nama),
@@ -312,7 +312,7 @@ fun ListItem(hewan: Book, onDeleteRequest: (String) -> Unit, isUserLoggedIn: Boo
                     color = Color.White
                 )
                 Text(
-                    text = hewan.namaLatin,
+                    text = hewan.halaman,
                     fontStyle = FontStyle.Italic,
                     fontSize = 14.sp,
                     color = Color.White
