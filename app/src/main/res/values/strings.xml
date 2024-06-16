@@ -8,11 +8,12 @@
     <string name="konfirmasi_hapus">Apakah anda yakin ingin menghapus?</string>
     <string name="hapus">Hapus</string>
     <string name="tambah_buku">Tambah buku</string>
-    <string name="nama">Nama</string>
-    <string name="halaman">halaman</string>
+    <string name="nama">Buku</string>
+    <string name="halaman">Halaman</string>
     <string name="profil">Profil</string>
     <string name="tutup">Tutup</string>
     <string name="logout">Logout</string>
+    <string name="instruksi">Simpan buku kesayanganmu dengan memotret, menyimpan judul, dan berikan catatan halaman.</string>
     <string name="copyright">Book adalah aplikasi untuk menyimpan identitas buku yang terdiri dari foto, nama buku, dan jumlah halaman buku.</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="kembali">Kembali</string>

@@ -27,31 +27,31 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface BukuApiService {
+interface HewanApiService {
     @GET("hewan.php")
-    suspend fun getBook(
+    suspend fun getHewan(
         @Header("Authorization") userId: String
     ): List<Book>
 
     @Multipart
     @POST("hewan.php")
-    suspend fun postBuku(
+    suspend fun postHewan(
         @Header("Authorization") userId: String,
         @Part("nama") nama: RequestBody,
-        @Part("halaman") halaman: RequestBody,
+        @Part("namaLatin") namaLatin: RequestBody,
         @Part image: MultipartBody.Part
     ): OpStatus
 
     @DELETE("hewan.php")
-    suspend fun deleteBuku(
+    suspend fun deleteHewan(
         @Header("Authorization") userId: String,
         @Query("id") id: String
     ): OpStatus
 }
 
-object BookApi {
-    val service: BukuApiService by lazy {
-        retrofit.create(BukuApiService::class.java)
+object HewanApi {
+    val service: HewanApiService by lazy {
+        retrofit.create(HewanApiService::class.java)
     }
 
     fun getHewanUrl(imageId: String): String {

@@ -80,7 +80,7 @@ import org.d3if0142.book.BuildConfig
 import org.d3if0142.book.R
 import org.d3if0142.book.model.User
 import org.d3if0142.book.network.ApiStatus
-import org.d3if0142.book.network.BookApi
+import org.d3if0142.book.network.HewanApi
 import org.d3if0142.book.network.UserDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -125,7 +125,7 @@ fun MainScreen(navController: NavHostController) {
                     IconButton(
                         onClick = {
                             navController.navigate(Screen.About.route)
-                    }) {
+                        }) {
                         Icon(
                             imageVector = Icons.Outlined.Info,
                             contentDescription = stringResource(R.string.tentang_aplikasi),
@@ -189,10 +189,10 @@ fun MainScreen(navController: NavHostController) {
             }
         }
         if (showHewanDialog) {
-            BookDialog(
+            HewanDialog(
                 bitmap = bitmap,
-                onDismissRequest = { showHewanDialog = false }) { nama, halaman ->
-                viewModel.saveData(user.email, nama, halaman, bitmap!!)
+                onDismissRequest = { showHewanDialog = false }) { nama, namaLatin ->
+                viewModel.saveData(user.email, nama, namaLatin, bitmap!!)
                 showHewanDialog = false
             }
         }
@@ -245,7 +245,7 @@ fun ScreenContent(
                 modifier = modifier
                     .fillMaxSize()
                     .padding(4.dp),
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(3),
                 contentPadding = PaddingValues(bottom = 80.dp)
             ) {
                 items(data) { hewan ->
@@ -287,7 +287,7 @@ fun ListItem(hewan: Book, onDeleteRequest: (String) -> Unit, isUserLoggedIn: Boo
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(BookApi.getHewanUrl(hewan.imageId))
+                .data(HewanApi.getHewanUrl(hewan.imageId))
                 .crossfade(true)
                 .build(),
             contentDescription = stringResource(R.string.gambar, hewan.nama),
@@ -312,7 +312,7 @@ fun ListItem(hewan: Book, onDeleteRequest: (String) -> Unit, isUserLoggedIn: Boo
                     color = Color.White
                 )
                 Text(
-                    text = hewan.halaman,
+                    text = hewan.namaLatin,
                     fontStyle = FontStyle.Italic,
                     fontSize = 14.sp,
                     color = Color.White

@@ -13,7 +13,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.d3if0142.book.model.Book
 import org.d3if0142.book.network.ApiStatus
-import org.d3if0142.book.network.BookApi
+import org.d3if0142.book.network.HewanApi
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 
@@ -32,7 +32,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             status.value = ApiStatus.LOADING
             try {
-                data.value = BookApi.service.getBook(userId)
+                data.value = HewanApi.service.getHewan(userId)
                 status.value = ApiStatus.SUCCESS
             } catch (e: Exception) {
                 Log.d("MainViewModel", "Failure: ${e.message}")
@@ -41,13 +41,13 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun saveData(userId: String, nama: String, halaman: String, bitmap: Bitmap) {
+    fun saveData(userId: String, nama: String, namaLatin: String, bitmap: Bitmap) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = BookApi.service.postBuku(
+                val result = HewanApi.service.postHewan(
                     userId,
                     nama.toRequestBody("text/plain".toMediaTypeOrNull()),
-                    halaman.toRequestBody("text/plain".toMediaTypeOrNull()),
+                    namaLatin.toRequestBody("text/plain".toMediaTypeOrNull()),
                     bitmap.toMultipartBody()
                 )
 
@@ -66,7 +66,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 Log.d("MainViewModel", "Attempting to delete hewan with ID: $hewanId using user ID: $userId")
-                val result = BookApi.service.deleteBuku(userId, hewanId)
+                val result = HewanApi.service.deleteHewan(userId, hewanId)
                 Log.d("MainViewModel", "API Response: status=${result.status}, message=${result.message}")
                 if (result.status == "success") {
                     retrieveData(userId)

@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -33,13 +34,13 @@ import org.d3if0142.book.R
 import org.d3if0142.book.ui.theme.BookTheme
 
 @Composable
-fun BookDialog(
+fun HewanDialog(
     bitmap: Bitmap?,
     onDismissRequest: () -> Unit,
     onConfirmation: (String, String) -> Unit
 ) {
     var nama by remember { mutableStateOf("") }
-    var halaman by remember { mutableStateOf("") }
+    var namaLatin by remember { mutableStateOf("") }
 
     Dialog(onDismissRequest = {onDismissRequest()}) {
         Card (
@@ -69,8 +70,8 @@ fun BookDialog(
                     modifier = Modifier.padding(top = 8.dp)
                 )
                 OutlinedTextField(
-                    value = halaman,
-                    onValueChange = {halaman = it},
+                    value = namaLatin,
+                    onValueChange = {namaLatin = it},
                     label = { Text(text = stringResource(id = R.string.halaman))},
                     maxLines = 1,
                     keyboardOptions = KeyboardOptions(
@@ -92,8 +93,8 @@ fun BookDialog(
                         Text(text = stringResource(id = R.string.batal))
                     }
                     OutlinedButton(
-                        onClick = { onConfirmation(nama, halaman) },
-                        enabled = nama.isNotEmpty() && halaman.isNotEmpty(),
+                        onClick = { onConfirmation(nama, namaLatin) },
+                        enabled = nama.isNotEmpty() && namaLatin.isNotEmpty(),
                         modifier = Modifier.padding(8.dp)
                     ) {
                         Text(text = stringResource(id = R.string.simpan))
@@ -109,7 +110,7 @@ fun BookDialog(
 @Composable
 fun AddDialogPreview() {
     BookTheme {
-        BookDialog(
+        HewanDialog(
             bitmap = null,
             onDismissRequest = {},
             onConfirmation = {_, _ ->}
